@@ -13,3 +13,10 @@
   background-size: 22px 22px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 650px){
+  .profile__add-button {
+    width: 282px;
+    background-size: 16px 16px;
+  }
+}
