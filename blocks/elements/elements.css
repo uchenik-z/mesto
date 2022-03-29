@@ -1,7 +1,4 @@
 .elements {
   width: 100%;
   margin: 0 auto 66px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 17px;
 }
