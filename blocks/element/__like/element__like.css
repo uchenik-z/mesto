@@ -9,5 +9,9 @@
   background-repeat: no-repeat;
   background-position: center;
   flex-shrink: 0;
+}
+
+.element__like:hover {
   cursor: pointer;
+  opacity: 0.5;
 }
