@@ -9,6 +9,8 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 const saveButton = modalWindow.querySelector('.popup__save');
 
 function onPopup() {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
   modalWindow.classList.add('popup_opened');
 }
 
