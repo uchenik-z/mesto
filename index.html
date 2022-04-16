@@ -26,59 +26,27 @@
 
       <section class="elements">
         <ul class="element">
-          <li class="element__list">
-            <img class="element__image" src="./images/element-karachaevsk.jpg" alt="Старый храм на фоне леса в Карачаевске.">
-            <div class="element__item">
-              <h2 class="element__title">Карачаевск</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="element__list">
-            <img class="element__image" src="./images/elment-gora-elbrus.jpg" alt="Вид издалека на гору Эльбрус.">
-            <div class="element__item">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="element__list">
-            <img class="element__image" src="./images/element-dombaj.jpg" alt="Огромные скалы в Домбае.">
-            <div class="element__item">
-              <h2 class="element__title">Домбай</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="element__list">
-            <img class="element__image" src="./images/elment-gora-elbrus.jpg" alt="Вид издалека на гору Эльбрус.">
-            <div class="element__item">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="element__list">
-            <img class="element__image" src="./images/element-dombaj.jpg" alt="Огромные скалы в Домбае.">
-            <div class="element__item">
-              <h2 class="element__title">Домбай</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="element__list">
-            <img class="element__image" src="./images/element-karachaevsk.jpg" alt="Старый храм на фоне леса в Карачаево-Черкесии.">
-            <div class="element__item">
-              <h2 class="element__title">Карачаево-Черкесия</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
+
         </ul>
       </section>
     </main>
-
 
     <footer class="footer">
       <p class="footer__text">© 2020 Mesto Russia</p>
     </footer>
   </div>
 
-  <div class="popup">
+  <template class="template-element">
+    <li class="element__list">
+      <img class="element__image" src="" alt="">
+      <div class="element__item">
+        <h2 class="element__title"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </li>
+  </template>
+
+  <div class="popup popup_place_profile">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -87,6 +55,26 @@
         <input class="popup__text popup__text_input_job" type="text" name="textJob" placeholder="О себе">
         <button class="popup__save" type="submit">Сохранить</button>
       </form>
+    </div>
+  </div>
+
+  <div class="popup popup_place_card">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="popupForm" method="post">
+        <input class="popup__text popup__text_input_title" type="text" name="textTitle" placeholder="Название">
+        <input class="popup__text popup__text_input_link" type="text" name="textLink" placeholder="Ссылка на картинку">
+        <button class="popup__save" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_card_image">
+    <div class="popup__container popup__container_place">
+      <button class="popup__close" type="button"></button>
+      <img class="popup__image">
+      <p class="popup__title"></p>
     </div>
   </div>
 
