@@ -96,9 +96,6 @@ function onSubmitCard(event) {
 popupFormCard.addEventListener('submit', onSubmitCard);
 
 
-
-
-
 function render() {
   const elementHTML = initialCards.map(getElementHTML);
   elementList.append(...elementHTML);
@@ -107,12 +104,30 @@ function render() {
 function getElementHTML (item) {
   const getElementTemplate = templateElement.content.cloneNode(true);
   const name = getElementTemplate.querySelector('.element__title');
-  name.textContent = item.name;
   const link = getElementTemplate.querySelector('.element__image');
+  const deleteButtonCard = getElementTemplate.querySelector('.element__delete');
+  const buttonLike = getElementTemplate.querySelector('.element__like');
+
+
+  name.textContent = item.name;
   link.src = item.link;
+
+  function toggleLike(event) {
+    event.target.classList.toggle('element__like_active');
+  }
+
+  deleteButtonCard.addEventListener('click', removeElement);
+  buttonLike.addEventListener('click', toggleLike);
 
   return getElementTemplate;
 }
+
+function removeElement(evt) {
+  const elementCard = evt.target.closest('.element__list');
+  elementCard.remove();
+}
+
+
 
 render();
 
