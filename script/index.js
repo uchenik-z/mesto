@@ -49,6 +49,10 @@ function onPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
 function profileInput() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
@@ -63,10 +67,6 @@ addButton.addEventListener('click', function() {
   onPopup(modalWindowCard);
 });
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-}
-
 closeButtonProfile.addEventListener('click', function() {
   closePopup(modalWindowProfile);
 });
@@ -77,9 +77,9 @@ closeButtonCard.addEventListener('click', function() {
 
 function onSubmitProfile(event) {
   event.preventDefault();
-   profileTitle.textContent = nameInput.value;
-   profileSubtitle.textContent = jobInput.value;
-   closePopup(modalWindowProfile);
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = jobInput.value;
+  closePopup(modalWindowProfile);
 }
 
 popupFormProfile.addEventListener('submit', onSubmitProfile);
@@ -108,26 +108,44 @@ function getElementHTML (item) {
   const deleteButtonCard = getElementTemplate.querySelector('.element__delete');
   const buttonLike = getElementTemplate.querySelector('.element__like');
 
+  const modalWindowImage = document.querySelector('.popup_card_image');
+  const closeButtonImage = modalWindowImage.querySelector('.popup__close');
+  const elementImage = getElementTemplate.querySelector('.element__image');
+  const popupContainerImage = modalWindowImage.querySelector('.popup__container_image');
+  const imagePopup = modalWindowImage.querySelector('.popup__image');
+  const textImage = modalWindowImage.querySelector('.popup__text-image');
+
 
   name.textContent = item.name;
   link.src = item.link;
+  link.alt = item.name;
 
   function toggleLike(event) {
     event.target.classList.toggle('element__like_active');
   }
 
+  function removeElement(evt) {
+    const elementCard = evt.target.closest('.element__list');
+    elementCard.remove();
+  }
+
+  function closeImage() {
+    modalWindowImage.classList.remove('popup_opened');
+  }
+
+  function openImage() {
+    modalWindowImage.classList.add('popup_opened');
+    imagePopup.src = item.link;
+    textImage.textContent = item.name;
+  };
+
+  elementImage.addEventListener('click', openImage);
   deleteButtonCard.addEventListener('click', removeElement);
   buttonLike.addEventListener('click', toggleLike);
+  closeButtonImage.addEventListener('click', closeImage);
 
   return getElementTemplate;
 }
-
-function removeElement(evt) {
-  const elementCard = evt.target.closest('.element__list');
-  elementCard.remove();
-}
-
-
 
 render();
 
