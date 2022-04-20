@@ -42,10 +42,13 @@ const popupFormCard = modalWindowCard.querySelector('.popup__form');
 const titleInput = popupFormCard.querySelector('.popup__text_input_title');
 const linkInput = popupFormCard.querySelector('.popup__text_input_link');
 
+const modalWindowImage = document.querySelector('.popup_card_image');
+const closeButtonImage = modalWindowImage.querySelector('.popup__close');
+
 const elementList = document.querySelector('.element');
 const templateElement = document.querySelector('.template-element');
 
-function onPopup(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
@@ -59,12 +62,12 @@ function profileInput() {
 }
 
 editButton.addEventListener('click', function() {
-  onPopup(modalWindowProfile);
+  openPopup(modalWindowProfile);
   profileInput();
 });
 
 addButton.addEventListener('click', function() {
-  onPopup(modalWindowCard);
+  openPopup(modalWindowCard);
 });
 
 closeButtonProfile.addEventListener('click', function() {
@@ -73,6 +76,10 @@ closeButtonProfile.addEventListener('click', function() {
 
 closeButtonCard.addEventListener('click', function() {
   closePopup(modalWindowCard);
+});
+
+closeButtonImage.addEventListener('click', function() {
+  closePopup(modalWindowImage);
 });
 
 function onSubmitProfile(event) {
@@ -88,33 +95,33 @@ function onSubmitCard(event) {
   event.preventDefault();
   const titleInput = popupFormCard.querySelector('.popup__text_input_title').value;
   const linkInput = popupFormCard.querySelector('.popup__text_input_link').value;
-  const element = getElementHTML({name: titleInput, link: linkInput});
+  const element = createCard({name: titleInput, link: linkInput});
   elementList.prepend(element);
   closePopup(modalWindowCard);
+  popupFormCard.reset();
 }
 
-popupFormCard.addEventListener('submit', onSubmitCard);
+popupFormCard.addEventListener('submit', onSubmitCard,);
 
 
 function render() {
-  const elementHTML = initialCards.map(getElementHTML);
+  const elementHTML = initialCards.map(createCard);
   elementList.append(...elementHTML);
 }
 
-function getElementHTML (item) {
-  const getElementTemplate = templateElement.content.cloneNode(true);
-  const name = getElementTemplate.querySelector('.element__title');
-  const link = getElementTemplate.querySelector('.element__image');
-  const deleteButtonCard = getElementTemplate.querySelector('.element__delete');
-  const buttonLike = getElementTemplate.querySelector('.element__like');
+function createCard (item) {
+  const templateCard = templateElement.content.cloneNode(true);
+  const name = templateCard.querySelector('.element__title');
+  const link = templateCard.querySelector('.element__image');
+  const deleteButtonCard = templateCard.querySelector('.element__delete');
+  const buttonLike = templateCard.querySelector('.element__like');
 
-  const modalWindowImage = document.querySelector('.popup_card_image');
-  const closeButtonImage = modalWindowImage.querySelector('.popup__close');
-  const elementImage = getElementTemplate.querySelector('.element__image');
+
+
+  const elementImage = templateCard.querySelector('.element__image');
   const popupContainerImage = modalWindowImage.querySelector('.popup__container_image');
   const imagePopup = modalWindowImage.querySelector('.popup__image');
   const textImage = modalWindowImage.querySelector('.popup__text-image');
-
 
   name.textContent = item.name;
   link.src = item.link;
@@ -129,22 +136,21 @@ function getElementHTML (item) {
     elementCard.remove();
   }
 
-  function closeImage() {
-    modalWindowImage.classList.remove('popup_opened');
-  }
-
-  function openImage() {
-    modalWindowImage.classList.add('popup_opened');
+    function imageInput() {
     imagePopup.src = item.link;
+    imagePopup.alt = item.name;
     textImage.textContent = item.name;
   };
 
-  elementImage.addEventListener('click', openImage);
+  elementImage.addEventListener('click', function() {
+    openPopup(modalWindowImage);
+    imageInput();
+  });
+
   deleteButtonCard.addEventListener('click', removeElement);
   buttonLike.addEventListener('click', toggleLike);
-  closeButtonImage.addEventListener('click', closeImage);
 
-  return getElementTemplate;
+  return templateCard;
 }
 
 render();
