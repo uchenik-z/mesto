@@ -16,6 +16,14 @@
   margin-bottom: 48px;
 }
 
+.popup__text:valid {
+  border-bottom: 1px solid green;
+}
+
+.popup__text:invalid {
+  border-bottom: 1px solid red;
+}
+
 @media screen and (max-width: 580px){
   .popup__text:last-of-type {
     margin-bottom: 45px;
