@@ -165,41 +165,36 @@ render();
 
 // Активная и неактивная кнопка
 
-function setSubmitButtonStateProfile(isFormValid) {
-  if (isFormValid) {
-    saveButtonProfile.removeAttribute('disabled');
-    saveButtonProfile.classList.remove('popup__button_disabled');
-  } else {
-    saveButtonProfile.setAttribute('disabled', true);
-    saveButtonProfile.classList.add('popup__button_disabled');
-  }
-}
+// function setSubmitButtonStateProfile(isFormValid) {
+//   if (isFormValid) {
+//     saveButtonProfile.removeAttribute('disabled');
+//     saveButtonProfile.classList.remove('popup__button_disabled');
+//   } else {
+//     saveButtonProfile.setAttribute('disabled', true);
+//     saveButtonProfile.classList.add('popup__button_disabled');
+//   }
+// }
 
-popupFormProfile.addEventListener('input', function (evt) {
-  const isValid = nameInput.value.length > 0 && jobInput.value.length > 0;
-  setSubmitButtonStateProfile(isValid);
-});
-
-
-function setSubmitButtonStateCard(isFormValid) {
-  if (isFormValid) {
-    saveButtonCard.removeAttribute('disabled');
-    saveButtonCard.classList.remove('popup__button_disabled');
-  } else {
-    saveButtonCard.setAttribute('disabled', true);
-    saveButtonCard.classList.add('popup__button_disabled');
-  }
-}
-
-popupFormCard.addEventListener('input', function (evt) {
-  const isValid = titleInput.value.length > 0 && linkInput.value.length > 0;
-  setSubmitButtonStateCard(isValid);
-});
+// popupFormProfile.addEventListener('input', function (evt) {
+//   const isValid = nameInput.value.length > 0 && jobInput.value.length > 0;
+//   setSubmitButtonStateProfile(isValid);
+// });
 
 
+// function setSubmitButtonStateCard(isFormValid) {
+//   if (isFormValid) {
+//     saveButtonCard.removeAttribute('disabled');
+//     saveButtonCard.classList.remove('popup__button_disabled');
+//   } else {
+//     saveButtonCard.setAttribute('disabled', true);
+//     saveButtonCard.classList.add('popup__button_disabled');
+//   }
+// }
 
-
-// Валидация форм
+// popupFormCard.addEventListener('input', function (evt) {
+//   const isValid = titleInput.value.length > 0 && linkInput.value.length > 0;
+//   setSubmitButtonStateCard(isValid);
+// });
 
 
 
@@ -223,7 +218,7 @@ popupFormCard.addEventListener('input', function (evt) {
 
 // function toggleButton(form, config) {
 //   const button = document.querySelector(config.buttonSelector);
-//   button.classList.toggle('popup__save_disabled', !form.checkValidity());
+//   button.classList.toggle('popup__button_disabled', !form.checkValidity());
 // }
 
 // function handleFormSubmit(event, form) {
