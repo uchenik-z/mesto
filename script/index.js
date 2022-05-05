@@ -26,26 +26,26 @@ const initialCards = [
 ];
 
 const popupBlock = document.querySelector('.popup');
-const input = popupBlock.querySelector('.popup__text');
+const input = popupBlock.querySelector('.popup__input');
 
 const editButton = document.querySelector('.profile__edit-button');
 const modalWindowProfile = document.querySelector('.popup_place_profile');
 const closeButtonProfile = modalWindowProfile.querySelector('.popup__close');
 const popupFormProfile = modalWindowProfile.querySelector('.popup__form');
-const nameInput = popupFormProfile.querySelector('.popup__text_input_name');
-const jobInput = popupFormProfile.querySelector('.popup__text_input_job');
+const nameInput = popupFormProfile.querySelector('.popup__input_type_name');
+const jobInput = popupFormProfile.querySelector('.popup__input_type_job');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const saveButton = modalWindowProfile.querySelector('.popup__save');
-const saveButtonProfile = modalWindowProfile.querySelector('.popup__save_button_profile');
+const saveButton = modalWindowProfile.querySelector('.popup__button');
+const saveButtonProfile = modalWindowProfile.querySelector('.popup__button_type_profile');
 
 const addButton = document.querySelector('.profile__add-button');
 const modalWindowCard = document.querySelector('.popup_place_card');
 const closeButtonCard = modalWindowCard.querySelector('.popup__close');
 const popupFormCard = modalWindowCard.querySelector('.popup__form');
-const titleInput = popupFormCard.querySelector('.popup__text_input_title');
-const linkInput = popupFormCard.querySelector('.popup__text_input_link');
-const saveButtonCard = modalWindowCard.querySelector('.popup__save_button_card');
+const titleInput = popupFormCard.querySelector('.popup__input_type_title');
+const linkInput = popupFormCard.querySelector('.popup__input_type_link');
+const saveButtonCard = modalWindowCard.querySelector('.popup__button_type_card');
 
 const modalWindowImage = document.querySelector('.popup_card_image');
 const closeButtonImage = modalWindowImage.querySelector('.popup__close');
@@ -98,8 +98,8 @@ popupFormProfile.addEventListener('submit', onSubmitProfile);
 
 function onSubmitCard(event) {
   event.preventDefault();
-  const titleInput = popupFormCard.querySelector('.popup__text_input_title').value;
-  const linkInput = popupFormCard.querySelector('.popup__text_input_link').value;
+  const titleInput = popupFormCard.querySelector('.popup__input_type_title').value;
+  const linkInput = popupFormCard.querySelector('.popup__input_type_link').value;
   const element = createCard({name: titleInput, link: linkInput});
   elementList.prepend(element);
   closePopup(modalWindowCard);
@@ -168,10 +168,10 @@ render();
 function setSubmitButtonStateProfile(isFormValid) {
   if (isFormValid) {
     saveButtonProfile.removeAttribute('disabled');
-    saveButtonProfile.classList.remove('popup__save_disabled');
+    saveButtonProfile.classList.remove('popup__button_disabled');
   } else {
     saveButtonProfile.setAttribute('disabled', true);
-    saveButtonProfile.classList.add('popup__save_disabled');
+    saveButtonProfile.classList.add('popup__button_disabled');
   }
 }
 
@@ -184,10 +184,10 @@ popupFormProfile.addEventListener('input', function (evt) {
 function setSubmitButtonStateCard(isFormValid) {
   if (isFormValid) {
     saveButtonCard.removeAttribute('disabled');
-    saveButtonCard.classList.remove('popup__save_disabled');
+    saveButtonCard.classList.remove('popup__button_disabled');
   } else {
     saveButtonCard.setAttribute('disabled', true);
-    saveButtonCard.classList.add('popup__save_disabled');
+    saveButtonCard.classList.add('popup__button_disabled');
   }
 }
 
@@ -252,8 +252,8 @@ popupFormCard.addEventListener('input', function (evt) {
 
 // enableValidation({
 //   formSelector: '.popup__form',
-//   inputSelector: '.popup__text',
-//   buttonSelector: '.popup__save'
+//   inputSelector: '.popup__input',
+//   buttonSelector: '.popup__button'
 // });
 
 
