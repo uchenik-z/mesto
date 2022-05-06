@@ -27,6 +27,8 @@ const initialCards = [
 
 const popupBlock = document.querySelector('.popup');
 const input = popupBlock.querySelector('.popup__input');
+const saveButton = popupBlock.querySelector('.popup__button');
+const popupClose = popupBlock.querySelector('.popup__close');
 
 const editButton = document.querySelector('.profile__edit-button');
 const modalWindowProfile = document.querySelector('.popup_place_profile');
@@ -36,7 +38,6 @@ const nameInput = popupFormProfile.querySelector('.popup__input_type_name');
 const jobInput = popupFormProfile.querySelector('.popup__input_type_job');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const saveButton = modalWindowProfile.querySelector('.popup__button');
 const saveButtonProfile = modalWindowProfile.querySelector('.popup__button_type_profile');
 
 const addButton = document.querySelector('.profile__add-button');
@@ -55,10 +56,19 @@ const templateElement = document.querySelector('.template-element');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClosePopup);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClosePopup);
+}
+
+function escClosePopup (event) {
+  if (event.key === "Escape") {
+    const closePopupEsc = document.querySelector('.popup_opened');
+    closePopup(closePopupEsc);
+  }
 }
 
 function profileInput() {
@@ -104,10 +114,9 @@ function onSubmitCard(event) {
   elementList.prepend(element);
   closePopup(modalWindowCard);
   popupFormCard.reset();
-  setSubmitButtonStateCard(false);
 }
 
-popupFormCard.addEventListener('submit', onSubmitCard,);
+popupFormCard.addEventListener('submit', onSubmitCard);
 
 
 function render() {
@@ -160,132 +169,20 @@ function createCard (item) {
 render();
 
 
+modalWindowProfile.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(modalWindowProfile);
+  }
+});
 
+modalWindowCard.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(modalWindowCard);
+  }
+});
 
-
-// Активная и неактивная кнопка
-
-// function setSubmitButtonStateProfile(isFormValid) {
-//   if (isFormValid) {
-//     saveButtonProfile.removeAttribute('disabled');
-//     saveButtonProfile.classList.remove('popup__button_disabled');
-//   } else {
-//     saveButtonProfile.setAttribute('disabled', true);
-//     saveButtonProfile.classList.add('popup__button_disabled');
-//   }
-// }
-
-// popupFormProfile.addEventListener('input', function (evt) {
-//   const isValid = nameInput.value.length > 0 && jobInput.value.length > 0;
-//   setSubmitButtonStateProfile(isValid);
-// });
-
-
-// function setSubmitButtonStateCard(isFormValid) {
-//   if (isFormValid) {
-//     saveButtonCard.removeAttribute('disabled');
-//     saveButtonCard.classList.remove('popup__button_disabled');
-//   } else {
-//     saveButtonCard.setAttribute('disabled', true);
-//     saveButtonCard.classList.add('popup__button_disabled');
-//   }
-// }
-
-// popupFormCard.addEventListener('input', function (evt) {
-//   const isValid = titleInput.value.length > 0 && linkInput.value.length > 0;
-//   setSubmitButtonStateCard(isValid);
-// });
-
-
-
-
-
-
-
-
-// function enableValidation(config) {
-//   const form = document.querySelector(config.formSelector);
-//   const inputs = form.querySelector(config.inputSelector);
-
-//   inputs.forEach((element) => {
-//     element.addEventListener('input', (event) => handleFormSubmit(event, form, config));
-//   });
-
-//   form.addEventListener('submit', (event) => handleFormSubmit(event, form));
-
-//   toggleButton(form, config);
-// }
-
-// function toggleButton(form, config) {
-//   const button = document.querySelector(config.buttonSelector);
-//   button.classList.toggle('popup__button_disabled', !form.checkValidity());
-// }
-
-// function handleFormSubmit(event, form) {
-//   event.preventDefault();
-
-//   if (form.checkValidity()) {
-//     alert('Форма валидна');
-//   } else {
-//     alert('Форма не валидна');
-//   }
-// }
-
-// function handleFormInput(event, form, config) {
-//   const input = event.target;
-//   const errorNode = document.querySelector(`#${input.id}-error`);
-
-//   if (input.validity.valid) {
-//     errorNode.textContent = '';
-//   } else {
-//     errorNode.textContent = input.validationMessage;
-//   }
-
-//   toggleButton(form, config);
-
-// }
-
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   buttonSelector: '.popup__button'
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.addEventListener('keydown', (event) => {
-//   if (event.target.classList.contains('popup_opened')) {
-//     closePopup();
-//   }
-// });
-
-// function closePopup() {
-//   document.querySelector('.popup_opened').classList.remove('popup_opened');
-// }
-
-
-
-
-
-// function overlayClose(event) {
-//   if (event.target === event.currentTarget) {
-//     closePopup(popupBlock);
-//   };
-// }
-
-// popupBlock.addEventListener('click', overlayClose);
-
-
+modalWindowImage.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(modalWindowImage);
+  }
+});

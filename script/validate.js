@@ -26,10 +26,12 @@ const isValid = (formSelector, inputSelector) => {
 
 const setEventListeners = (formSelector) => {
   const inputList = Array.from(formSelector.querySelectorAll('.popup__input'));
+  const submitButtonSelector = formSelector.querySelector('.popup__button');
 
   inputList.forEach((inputSelector) => {
     inputSelector.addEventListener('input', () => {
       isValid(formSelector, inputSelector)
+      toggleButtonState(inputList, submitButtonSelector);
     });
   });
 };
@@ -48,4 +50,20 @@ const enableValidation = () => {
 
 enableValidation();
 
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputSelector) => {
+    return !inputSelector.validity.valid;
+  })
+};
+
+const toggleButtonState = (inputList, submitButtonSelector) => {
+  if (hasInvalidInput(inputList)) {
+    submitButtonSelector.classList.add('popup__button_disabled');
+    submitButtonSelector.setAttribute('disabled', true);
+  } else {
+    submitButtonSelector.classList.remove('popup__button_disabled');
+    submitButtonSelector.removeAttribute('disabled');
+  }
+};
 
