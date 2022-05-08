@@ -95,7 +95,7 @@ function onSubmitCard(event) {
   saveButtonCard.setAttribute('disabled', true);
 }
 
-popupFormCard.addEventListener('submit', onSubmitCard,);
+popupFormCard.addEventListener('submit', onSubmitCard);
 
 
 function render() {
