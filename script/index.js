@@ -1,35 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const popupBlock = document.querySelector('.popup');
-const input = popupBlock.querySelector('.popup__input');
-const saveButton = popupBlock.querySelector('.popup__button');
-const popupClose = popupBlock.querySelector('.popup__close');
-
 const editButton = document.querySelector('.profile__edit-button');
 const modalWindowProfile = document.querySelector('.popup_place_profile');
 const closeButtonProfile = modalWindowProfile.querySelector('.popup__close');
@@ -57,17 +25,26 @@ const templateElement = document.querySelector('.template-element');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', escClosePopup);
+  document.addEventListener('click', overlayPopupClose);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', escClosePopup);
+  document.removeEventListener('click', overlayPopupClose);
 }
 
 function escClosePopup (event) {
   if (event.key === "Escape") {
     const closePopupEsc = document.querySelector('.popup_opened');
     closePopup(closePopupEsc);
+  }
+}
+
+function overlayPopupClose(evt) {
+  const modalWindow = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(modalWindow);
   }
 }
 
@@ -114,14 +91,25 @@ function onSubmitCard(event) {
   elementList.prepend(element);
   closePopup(modalWindowCard);
   popupFormCard.reset();
+  saveButtonCard.classList.add('popup__button_disabled');
+  saveButtonCard.setAttribute('disabled', true);
 }
 
-popupFormCard.addEventListener('submit', onSubmitCard);
+popupFormCard.addEventListener('submit', onSubmitCard,);
 
 
 function render() {
   const elementHTML = initialCards.map(createCard);
   elementList.append(...elementHTML);
+}
+
+function toggleLike(event) {
+  event.target.classList.toggle('element__like_active');
+}
+
+function removeElement(evt) {
+  const elementCard = evt.target.closest('.element__list');
+  elementCard.remove();
 }
 
 function createCard (item) {
@@ -140,16 +128,7 @@ function createCard (item) {
   link.src = item.link;
   link.alt = item.name;
 
-  function toggleLike(event) {
-    event.target.classList.toggle('element__like_active');
-  }
-
-  function removeElement(evt) {
-    const elementCard = evt.target.closest('.element__list');
-    elementCard.remove();
-  }
-
-    function imageInput() {
+  function imageInput() {
     imagePopup.src = item.link;
     imagePopup.alt = item.name;
     textImage.textContent = item.name;
@@ -167,22 +146,3 @@ function createCard (item) {
 }
 
 render();
-
-
-modalWindowProfile.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closePopup(modalWindowProfile);
-  }
-});
-
-modalWindowCard.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closePopup(modalWindowCard);
-  }
-});
-
-modalWindowImage.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closePopup(modalWindowImage);
-  }
-});
