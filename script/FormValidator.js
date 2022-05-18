@@ -70,3 +70,5 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 });
+
+export {showInputError, hideInputError, isValid, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState};

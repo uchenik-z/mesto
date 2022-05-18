@@ -1,3 +1,7 @@
+import {showInputError, hideInputError, isValid, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState} from './FormValidator.js';
+
+import {initialCards} from './Card.js';
+
 const editButton = document.querySelector('.profile__edit-button');
 const modalWindowProfile = document.querySelector('.popup_place_profile');
 const closeButtonProfile = modalWindowProfile.querySelector('.popup__close');
