@@ -1,6 +1,8 @@
 import {showInputError, hideInputError, isValid, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState} from './FormValidator.js';
 
-import {initialCards} from './Card.js';
+import {initialCards, Card} from './Card.js';
+
+
 
 const editButton = document.querySelector('.profile__edit-button');
 const modalWindowProfile = document.querySelector('.popup_place_profile');
@@ -25,6 +27,11 @@ const closeButtonImage = modalWindowImage.querySelector('.popup__close');
 
 const elementList = document.querySelector('.element');
 const templateElement = document.querySelector('.template-element');
+
+
+const imagePopup = modalWindowImage.querySelector('.popup__image');
+const textImage = modalWindowImage.querySelector('.popup__text-image');
+
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -102,51 +109,75 @@ function onSubmitCard(event) {
 popupFormCard.addEventListener('submit', onSubmitCard);
 
 
-function render() {
-  const elementHTML = initialCards.map(createCard);
-  elementList.append(...elementHTML);
-}
 
-function toggleLike(event) {
-  event.target.classList.toggle('element__like_active');
-}
 
-function removeElement(evt) {
-  const elementCard = evt.target.closest('.element__list');
-  elementCard.remove();
-}
 
-function createCard (item) {
-  const templateCard = templateElement.content.cloneNode(true);
-  const name = templateCard.querySelector('.element__title');
-  const link = templateCard.querySelector('.element__image');
-  const deleteButtonCard = templateCard.querySelector('.element__delete');
-  const buttonLike = templateCard.querySelector('.element__like');
 
-  const elementImage = templateCard.querySelector('.element__image');
-  const popupContainerImage = modalWindowImage.querySelector('.popup__container_image');
-  const imagePopup = modalWindowImage.querySelector('.popup__image');
-  const textImage = modalWindowImage.querySelector('.popup__text-image');
+initialCards.forEach((data) => {
+  const card = new Card(data, '.template-element', handlePhotoClick);
+  const cardElement = card.generateCard();
 
-  name.textContent = item.name;
-  link.src = item.link;
-  link.alt = item.name;
+  document.querySelector('.element').append(cardElement);
+});
 
-  function imageInput() {
-    imagePopup.src = item.link;
-    imagePopup.alt = item.name;
-    textImage.textContent = item.name;
-  };
+function handlePhotoClick(item) {
+  imagePopup.src = item.link;
+  imagePopup.alt = item.name;
+  textImage.textContent = item.name;
+  openPopup(modalWindowImage);
+};
 
-  elementImage.addEventListener('click', function() {
-    openPopup(modalWindowImage);
-    imageInput();
-  });
 
-  deleteButtonCard.addEventListener('click', removeElement);
-  buttonLike.addEventListener('click', toggleLike);
 
-  return templateCard;
-}
+
+
+// function render() {
+//   const elementHTML = initialCards.map(createCard);
+//   elementList.append(...elementHTML);
+// }
+
+// function toggleLike(event) {
+//   event.target.classList.toggle('element__like_active');
+// }
+
+// function removeElement(evt) {
+//   const elementCard = evt.target.closest('.element__list');
+//   elementCard.remove();
+// }
+
+// function createCard (item) {
+//   const templateCard = templateElement.content.cloneNode(true);
+//   const name = templateCard.querySelector('.element__title');
+//   const link = templateCard.querySelector('.element__image');
+//   const deleteButtonCard = templateCard.querySelector('.element__delete');
+//   const buttonLike = templateCard.querySelector('.element__like');
+
+//   const elementImage = templateCard.querySelector('.element__image');
+//   const popupContainerImage = modalWindowImage.querySelector('.popup__container_image');
+//   const imagePopup = modalWindowImage.querySelector('.popup__image');
+//   const textImage = modalWindowImage.querySelector('.popup__text-image');
+
+//   name.textContent = item.name;
+//   link.src = item.link;
+//   link.alt = item.name;
+
+//   function imageInput() {
+//     imagePopup.src = item.link;
+//     imagePopup.alt = item.name;
+//     textImage.textContent = item.name;
+//   };
+
+//   elementImage.addEventListener('click', function() {
+//     openPopup(modalWindowImage);
+//     imageInput();
+//   });
+
+//   deleteButtonCard.addEventListener('click', removeElement);
+//   buttonLike.addEventListener('click', toggleLike);
+
+//   return templateCard;
+// }
+
+
 
 render();
