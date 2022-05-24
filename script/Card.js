@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 class Card {
   constructor(data, cardSelector, handleOpenImage) {
     this._name = data.name;
@@ -61,8 +34,6 @@ class Card {
     this._handleOpenImage({link: this._link, name: this._name});
   }
 
-
-
   _setEventListeners() {
     this._element.querySelector('.element__delete').addEventListener('click', () => {
       this._removeCard();
@@ -79,6 +50,4 @@ class Card {
 
 }
 
-export {initialCards, Card};
-
-
+export {Card};

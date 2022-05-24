@@ -1,7 +1,6 @@
+import {Card} from './Card.js';
+import {initialCards} from './cards.js';
 import {showInputError, hideInputError, isValid, setEventListeners, enableValidation, hasInvalidInput, toggleButtonState} from './FormValidator.js';
-
-import {initialCards, Card} from './Card.js';
-
 
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -94,23 +93,19 @@ function onSubmitProfile(event) {
 
 popupFormProfile.addEventListener('submit', onSubmitProfile);
 
-function onSubmitCard(event) {
-  event.preventDefault();
-  const titleInput = popupFormCard.querySelector('.popup__input_type_title').value;
-  const linkInput = popupFormCard.querySelector('.popup__input_type_link').value;
-  const element = createCard({name: titleInput, link: linkInput});
-  elementList.prepend(element);
-  closePopup(modalWindowCard);
+
+function onSubmitCard(evt) {
+  evt.preventDefault();
+  const card = new Card ({name: titleInput.value, link: linkInput.value}, '.template-element', handlePhotoClick);
+  const cardElement = card.generateCard();
+  elementList.prepend(cardElement);
   popupFormCard.reset();
+  closePopup(modalWindowCard);
   saveButtonCard.classList.add('popup__button_disabled');
   saveButtonCard.setAttribute('disabled', true);
-}
+};
 
 popupFormCard.addEventListener('submit', onSubmitCard);
-
-
-
-
 
 
 initialCards.forEach((data) => {
@@ -128,6 +123,20 @@ function handlePhotoClick(item) {
 };
 
 
+
+// function onSubmitCard(event) {
+//   event.preventDefault();
+//   const titleInput = popupFormCard.querySelector('.popup__input_type_title').value;
+//   const linkInput = popupFormCard.querySelector('.popup__input_type_link').value;
+//   const element = createCard({name: titleInput, link: linkInput});
+//   elementList.prepend(element);
+//   closePopup(modalWindowCard);
+//   popupFormCard.reset();
+//   saveButtonCard.classList.add('popup__button_disabled');
+//   saveButtonCard.setAttribute('disabled', true);
+// }
+
+// popupFormCard.addEventListener('submit', onSubmitCard);
 
 
 
@@ -178,6 +187,4 @@ function handlePhotoClick(item) {
 //   return templateCard;
 // }
 
-
-
-render();
+// render();
