@@ -74,4 +74,15 @@ export class FormValidator {
     this._buttonCard.setAttribute('disabled', true);
   }
 
+  _inputListReset = () => {
+    this._inputList.forEach((input) => {
+        this._hideInputError(input);
+    });
+  };
+
+  validationReset = () => {
+    this._inputListReset();
+    this._toggleButtonState();
+  }
+
 }

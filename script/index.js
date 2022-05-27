@@ -69,6 +69,7 @@ function overlayPopupClose(evt) {
 function profileInput() {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  profileFormValidator.validationReset();
 }
 
 editButton.addEventListener('click', function() {
