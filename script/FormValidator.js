@@ -7,6 +7,9 @@ export class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._buttonCard = this._form.querySelector('.popup__button_type_card');
   }
 
   _showInputError = (input) => {
@@ -32,43 +35,43 @@ export class FormValidator {
   }
 
   _setEventListeners = () => {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-
-    inputList.forEach((input) => {
+    this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._isValid(input);
-        this._toggleButtonState(inputList, submitButton);
+        this._toggleButtonState();
       });
     });
   }
 
   enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll(this._formSelector));
-
-    formList.forEach((form) => {
-      form.addEventListener('submit', (evt) => {
+      this._form.addEventListener('submit', (evt) => {
         evt.preventDefault();
+        this._buttonCardDisabled();
       });
 
-      this._setEventListeners(form);
-    });
+      this._setEventListeners();
+
   }
 
-  _hasInvalidInput = (inputList) => {
-    return inputList.some((input) => {
+  _hasInvalidInput = () => {
+    return this._inputList.some((input) => {
       return !input.validity.valid;
     });
   }
 
-  _toggleButtonState(inputList, submitButton) {
-    if (this._hasInvalidInput(inputList)) {
-      submitButton.classList.add(this._inactiveButtonClass);
-      submitButton.setAttribute('disabled', true);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.setAttribute('disabled', true);
     } else {
-      submitButton.classList.remove(this._inactiveButtonClass);
-      submitButton.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
     }
+  }
+
+  _buttonCardDisabled() {
+    this._buttonCard.classList.add('popup__button_disabled');
+    this._buttonCard.setAttribute('disabled', true);
   }
 
 }

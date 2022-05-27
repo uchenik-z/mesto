@@ -109,8 +109,6 @@ function onSubmitCard(evt) {
   elementList.prepend(cardElement);
   popupFormCard.reset();
   closePopup(modalWindowCard);
-  saveButtonCard.classList.add('popup__button_disabled');
-  saveButtonCard.setAttribute('disabled', true);
 };
 
 popupFormCard.addEventListener('submit', onSubmitCard);
@@ -120,7 +118,7 @@ initialCards.forEach((data) => {
   const card = new Card(data, '.template-element', handlePhotoClick);
   const cardElement = card.generateCard();
 
-  document.querySelector('.element').append(cardElement);
+  elementList.append(cardElement);
 });
 
 function handlePhotoClick(item) {

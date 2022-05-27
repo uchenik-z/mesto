@@ -16,7 +16,9 @@ class Card {
     this._element = this._createCard();
     this._setEventListeners();
 
-    this._element.querySelector('.element__image').src = this._link;
+    this._image = this._element.querySelector('.element__image');
+    this._image.src = this._link;
+    this._image.alt = this._name;
     this._element.querySelector('.element__title').textContent = this._name;
 
     return this._element;
@@ -24,6 +26,7 @@ class Card {
 
   _removeCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _toggleLike() {
