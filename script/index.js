@@ -102,11 +102,16 @@ function onSubmitProfile(event) {
 popupFormProfile.addEventListener('submit', onSubmitProfile);
 
 
+function addCard(data) {
+  const card = new Card (data, '.template-element', handlePhotoClick);
+  const cardElement = card.generateCard();
+
+  return cardElement;
+}
+
 function onSubmitCard(evt) {
   evt.preventDefault();
-  const card = new Card ({name: titleInput.value, link: linkInput.value}, '.template-element', handlePhotoClick);
-  const cardElement = card.generateCard();
-  elementList.prepend(cardElement);
+  elementList.prepend(addCard({name: titleInput.value, link: linkInput.value}, '.template-element', handlePhotoClick));
   popupFormCard.reset();
   closePopup(modalWindowCard);
 };
@@ -115,10 +120,7 @@ popupFormCard.addEventListener('submit', onSubmitCard);
 
 
 initialCards.forEach((data) => {
-  const card = new Card(data, '.template-element', handlePhotoClick);
-  const cardElement = card.generateCard();
-
-  elementList.append(cardElement);
+  elementList.append(addCard(data, '.template-element', handlePhotoClick));
 });
 
 function handlePhotoClick(item) {
