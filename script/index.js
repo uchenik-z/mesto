@@ -24,20 +24,17 @@ const saveButtonCard = modalWindowCard.querySelector('.popup__button_type_card')
 
 const modalWindowImage = document.querySelector('.popup_card_image');
 const closeButtonImage = modalWindowImage.querySelector('.popup__close');
-
-const elementList = document.querySelector('.element');
-const templateElement = document.querySelector('.template-element');
-
 const imagePopup = modalWindowImage.querySelector('.popup__image');
 const textImage = modalWindowImage.querySelector('.popup__text-image');
 
+const elementList = document.querySelector('.element');
+const templateElement = document.querySelector('.template-element');
 
 
 const cardFormValidator = new FormValidator(config, popupFormCard);
 const profileFormValidator = new FormValidator(config, popupFormProfile);
 cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
-
 
 
 function openPopup(popup) {
@@ -114,6 +111,7 @@ function onSubmitCard(evt) {
   evt.preventDefault();
   elementList.prepend(addCard({name: titleInput.value, link: linkInput.value}, '.template-element', handlePhotoClick));
   popupFormCard.reset();
+  cardFormValidator.validationReset();
   closePopup(modalWindowCard);
 };
 

@@ -9,7 +9,6 @@ export class FormValidator {
     this._errorClass = config.errorClass;
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
-    this._buttonCard = this._form.querySelector('.popup__button_type_card');
   }
 
   _showInputError = (input) => {
@@ -46,7 +45,7 @@ export class FormValidator {
   enableValidation = () => {
       this._form.addEventListener('submit', (evt) => {
         evt.preventDefault();
-        this._buttonCardDisabled();
+        this._toggleButtonState();
       });
 
       this._setEventListeners();
@@ -67,11 +66,6 @@ export class FormValidator {
       this._submitButton.classList.remove(this._inactiveButtonClass);
       this._submitButton.removeAttribute('disabled');
     }
-  }
-
-  _buttonCardDisabled() {
-    this._buttonCard.classList.add('popup__button_disabled');
-    this._buttonCard.setAttribute('disabled', true);
   }
 
   _inputListReset = () => {
