@@ -1,7 +1,12 @@
-import { Card } from './Card.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+import UserInfo from './UserInfo.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 import { initialCards } from './cards.js';
-import { FormValidator } from './FormValidator.js';
 import { config } from './utils.js';
+
 
 
 const editButton = document.querySelector('.profile__edit-button');
@@ -29,6 +34,8 @@ const textImage = modalWindowImage.querySelector('.popup__text-image');
 
 const elementList = document.querySelector('.element');
 const templateElement = document.querySelector('.template-element');
+const modalWindowPopup = document.querySelector('.popup');
+
 
 
 const cardFormValidator = new FormValidator(config, popupFormCard);
@@ -37,94 +44,59 @@ cardFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', escClosePopup);
-  document.addEventListener('click', overlayPopupClose);
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escClosePopup);
-  document.removeEventListener('click', overlayPopupClose);
-}
-
-function escClosePopup (event) {
-  if (event.key === "Escape") {
-    const closePopupEsc = document.querySelector('.popup_opened');
-    closePopup(closePopupEsc);
-  }
-}
-
-function overlayPopupClose(evt) {
-  const modalWindow = document.querySelector('.popup_opened');
-  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-    closePopup(modalWindow);
-  }
-}
-
-function profileInput() {
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-  profileFormValidator.validationReset();
-}
-
-editButton.addEventListener('click', function() {
-  openPopup(modalWindowProfile);
-  profileInput();
-});
-
-addButton.addEventListener('click', function() {
-  openPopup(modalWindowCard);
-});
-
-closeButtonProfile.addEventListener('click', function() {
-  closePopup(modalWindowProfile);
-});
-
-closeButtonCard.addEventListener('click', function() {
-  closePopup(modalWindowCard);
-});
-
-closeButtonImage.addEventListener('click', function() {
-  closePopup(modalWindowImage);
-});
-
-function onSubmitProfile(event) {
-  event.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;
-  closePopup(modalWindowProfile);
-}
-
-popupFormProfile.addEventListener('submit', onSubmitProfile);
-
-
 function addCard(data) {
   const card = new Card (data, '.template-element', handlePhotoClick);
   const cardElement = card.generateCard();
-
   return cardElement;
 }
 
-function onSubmitCard(evt) {
-  evt.preventDefault();
-  elementList.prepend(addCard({name: titleInput.value, link: linkInput.value}, '.template-element', handlePhotoClick));
-  popupFormCard.reset();
-  cardFormValidator.validationReset();
-  closePopup(modalWindowCard);
+
+const section = new Section({ items: initialCards,
+  renderer: (item) => {
+    const card = addCard(item);
+    section.addItem(card);
+  }
+}, '.element');
+
+section.renderItems();
+
+
+const popupWithImage = new PopupWithImage('.popup_card_image');
+popupWithImage.setEventListeners();
+function handlePhotoClick({name, link}) {
+  popupWithImage.open({name, link});
 };
 
-popupFormCard.addEventListener('submit', onSubmitCard);
 
+const cardForm = new PopupWithForm('.popup_place_card', {submitHandler: (data) => {
+  const input = {name: data.title, link: data.link};
+  const elementCard = addCard(input);
+  section.addItem(elementCard);
+  cardForm.close();
+}});
 
-initialCards.forEach((data) => {
-  elementList.append(addCard(data, '.template-element', handlePhotoClick));
+cardForm.setEventListeners();
+
+addButton.addEventListener('click', function() {
+  cardForm.open();
+  cardFormValidator.validationReset();
 });
 
-function handlePhotoClick(item) {
-  imagePopup.src = item.link;
-  imagePopup.alt = item.name;
-  textImage.textContent = item.name;
-  openPopup(modalWindowImage);
-};
+
+const userInfo = new UserInfo({name: '.profile__title', job: '.profile__subtitle'});
+
+
+const profileForm = new PopupWithForm('.popup_place_profile', {submitHandler: (data) => {
+  userInfo.setUserInfo({name: data.name, job: data.job});
+  profileForm.close();
+}});
+
+profileForm.setEventListeners();
+
+editButton.addEventListener('click', function() {
+  profileForm.open();
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.job;
+  profileFormValidator.validationReset();
+});
