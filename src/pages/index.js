@@ -6,6 +6,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import { initialCards, editButton, modalWindowProfile, popupFormProfile, nameInput, jobInput, addButton, modalWindowCard, popupFormCard } from '../utils/constants.js';
 import { config } from '../utils/utils.js';
+import './index.css';
 
 
 
