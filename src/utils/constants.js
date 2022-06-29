@@ -25,12 +25,12 @@ export const initialCards = [
   }
 ];
 
-export const editButton = document.querySelector('.profile__edit-button');
-export const modalWindowProfile = document.querySelector('.popup_place_profile');
-export const popupFormProfile = modalWindowProfile.querySelector('.popup__form');
+export const buttonEditProfile = document.querySelector('.profile__edit-button');
+export const profileModalWindow = document.querySelector('.popup_place_profile');
+export const popupFormProfile = profileModalWindow.querySelector('.popup__form');
 export const nameInput = popupFormProfile.querySelector('.popup__input_type_name');
 export const jobInput = popupFormProfile.querySelector('.popup__input_type_job');
 
-export const addButton = document.querySelector('.profile__add-button');
-export const modalWindowCard = document.querySelector('.popup_place_card');
-export const popupFormCard = modalWindowCard.querySelector('.popup__form');
+export const buttonAddCard = document.querySelector('.profile__add-button');
+export const cardModalWindow = document.querySelector('.popup_place_card');
+export const popupFormCard = cardModalWindow.querySelector('.popup__form');

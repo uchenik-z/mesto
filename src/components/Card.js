@@ -7,9 +7,7 @@ export default class Card {
   }
 
   _createCard() {
-    const cardElement = document.querySelector(this._cardSelector).content.querySelector('.element__list').cloneNode(true);
-
-    return cardElement;
+    return document.querySelector(this._cardSelector).content.querySelector('.element__list').cloneNode(true);
   }
 
   generateCard() {
